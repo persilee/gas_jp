@@ -15,9 +15,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: '巨鹏燃气',
       theme: ThemeData(
-        primaryColor: Color.fromRGBO(244, 67, 54, 1),
+        primaryColor: Color.fromRGBO(41, 150, 196, 1),
         highlightColor: Color.fromRGBO(255, 255, 255, 0.6),
-        splashColor: Color.fromRGBO(244, 67, 54, 0.5),
+        splashColor: Color.fromRGBO(41, 150, 196, 0.5),
       ),
       routes: <String, WidgetBuilder>{
         'home': (BuildContext context) => HomePage(),

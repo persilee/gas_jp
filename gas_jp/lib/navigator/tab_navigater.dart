@@ -10,7 +10,7 @@ class TabNavigator extends StatefulWidget {
 
 class _TabNavigatorState extends State<TabNavigator> {
   final _defaultColor = Colors.grey[400];
-  final _activeColor = Color.fromRGBO(244, 67, 54, 1);
+  final _activeColor = Color.fromRGBO(41, 150, 196, 1);
   int _currentIndex = 0;
   final PageController _controller = PageController(
     initialPage: 0,
@@ -41,8 +41,16 @@ class _TabNavigatorState extends State<TabNavigator> {
           type: BottomNavigationBarType.fixed,
           items: [
             BottomNavigationBarItem(
-              icon: Icon(Icons.home, color: _defaultColor,),
-              activeIcon: Icon(Icons.home,color: _activeColor,),
+              icon: Image.asset(
+                'assets/images/icon_menu_homeUnactived.png',
+                width: 28,
+                height: 28,
+              ),
+              activeIcon: Image.asset(
+                  'assets/images/icon_menu_homeActived.png',
+                  width: 28,
+                  height: 28,
+              ),
               title: Text(
                 '首页',
                 style: TextStyle(
@@ -52,8 +60,16 @@ class _TabNavigatorState extends State<TabNavigator> {
               ),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.free_breakfast, color: _defaultColor,),
-              activeIcon: Icon(Icons.free_breakfast, color: _activeColor,),
+              icon: Image.asset(
+                'assets/images/icon_menu_storeUnactived.png',
+                width: 28,
+                height: 28,
+              ),
+              activeIcon: Image.asset(
+                  'assets/images/icon_menu_storeActived.png',
+                  width: 28,
+                  height: 28,
+              ),
               title: Text(
                 '商城',
                 style: TextStyle(
@@ -63,8 +79,16 @@ class _TabNavigatorState extends State<TabNavigator> {
               ),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.person, color: _defaultColor,),
-              activeIcon: Icon(Icons.person, color: _activeColor,),
+              icon: Image.asset(
+                  'assets/images/icon_menu_accountUnactived.png',
+                  width: 28,
+                  height: 28,
+              ),
+              activeIcon: Image.asset(
+                  'assets/images/icon_menu_accountActived.png',
+                  width: 28,
+                  height: 28,
+              ),
               title: Text(
                 '账户中心',
                 style: TextStyle(

@@ -33,6 +33,7 @@ dependencies:
   direct_select: ^1.0.0
   url_launcher: ^5.0.5
   shared_preferences: ^0.5.3+2
+  marquee_flutter: ^0.1.4
 
 dev_dependencies:
   flutter_test:
@@ -52,7 +53,24 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/banner.png
+    - assets/images/ranqifei.png
+    - assets/images/img_banner1.png
+    - assets/images/img_banner2.png
+    - assets/images/icon_menu_accountActived.png
+    - assets/images/icon_menu_accountUnactived.png
+    - assets/images/icon_menu_storeActived.png
+    - assets/images/icon_menu_storeUnactived.png
+    - assets/images/icon_menu_homeActived.png
+    - assets/images/icon_menu_homeUnactived.png
+    - assets/images/icon_gas.png
+    - assets/images/icon_record.png
+    - assets/images/icon_service.png
+    - assets/images/icon_more.png
+    - assets/images/icon_notice.png
+    - assets/images/icon_convenience.png
+    - assets/images/ags001.jpeg
+    - assets/images/ags002.jpg
+    - assets/images/icon_blackBoard.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
