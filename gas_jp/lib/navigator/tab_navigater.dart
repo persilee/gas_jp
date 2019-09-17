@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gas_jp/pages/home_page.dart';
 import 'package:gas_jp/pages/business_page.dart';
+import 'package:gas_jp/pages/login_page.dart';
 import 'package:gas_jp/pages/my_page.dart';
 
 class TabNavigator extends StatefulWidget {

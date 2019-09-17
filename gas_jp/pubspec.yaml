@@ -71,6 +71,8 @@ flutter:
     - assets/images/ags001.jpeg
     - assets/images/ags002.jpg
     - assets/images/icon_blackBoard.png
+    - assets/images/img_identityCard1.png
+    - assets/images/img_identityCard2.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

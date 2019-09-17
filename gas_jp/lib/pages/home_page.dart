@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:gas_jp/pages/login_page.dart';
+import 'package:gas_jp/util/toast.dart';
 import 'package:marquee_flutter/marquee_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:easy_dialog/easy_dialog.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -8,6 +12,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  String _name = '';
   bool _loading = true;
   List _imageUrls = [
     'assets/images/img_banner1.png',
@@ -28,6 +34,17 @@ class _HomePageState extends State<HomePage> {
     }
     return null;
   }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _prefs.then((SharedPreferences prefs){
+      _name = (prefs.getString('name') ?? '');
+    });
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +90,7 @@ class _HomePageState extends State<HomePage> {
                       Expanded(
                         flex: 1,
                         child: GestureDetector(
-                          onTap: () {},
+                          onTap: _isLogin,
                           child: Column(
                             children: <Widget>[
                               Image(
@@ -97,7 +114,7 @@ class _HomePageState extends State<HomePage> {
                       Expanded(
                         flex: 1,
                         child: GestureDetector(
-                          onTap: () {},
+                          onTap: _isLogin,
                           child: Column(
                             children: <Widget>[
                               Image(
@@ -122,7 +139,7 @@ class _HomePageState extends State<HomePage> {
                       Expanded(
                         flex: 1,
                         child: GestureDetector(
-                          onTap: () {},
+                          onTap: _isLogin,
                           child: Column(
                             children: <Widget>[
                               Image(
@@ -147,7 +164,9 @@ class _HomePageState extends State<HomePage> {
                       Expanded(
                         flex: 1,
                         child: GestureDetector(
-                          onTap: () {},
+                          onTap: (){
+                            _showAlertDialog(context);
+                          },
                           child: Column(
                             children: <Widget>[
                               Image(
@@ -255,7 +274,7 @@ class _HomePageState extends State<HomePage> {
                           child: Padding(
                         padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Text('业务须知',
@@ -288,7 +307,7 @@ class _HomePageState extends State<HomePage> {
                         child: Padding(
                           padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Text('收费标准',
@@ -365,7 +384,7 @@ class _HomePageState extends State<HomePage> {
                           child: Padding(
                             padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                             child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 Text('业务须知',
@@ -398,7 +417,7 @@ class _HomePageState extends State<HomePage> {
                         child: Padding(
                           padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Text('收费标准',
@@ -427,5 +446,28 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+
+  void _isLogin() {
+    if( _name == '' ){
+      Toast.show(context, "您还没有登录！");
+      _jumpLogin();
+    }
+  }
+  Future<Null> _jumpLogin() async {
+    await Future.delayed(Duration(seconds: 1), () {
+      Navigator.of(context).push(MaterialPageRoute(builder: (context) => LoginPage()));
+    });
+  }
+  void _showAlertDialog(BuildContext context) {
+    EasyDialog(
+      description: Text(
+        "功能暂未开放，敬请期待",
+        textScaleFactor: 1.2,
+        style: TextStyle(fontSize: 14, color: Colors.black54),
+        textAlign: TextAlign.center,
+      ),
+      height: 140,
+    ).show(context);
   }
 }
