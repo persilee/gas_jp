@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gas_jp/pages/find_pwd_page.dart';
+import 'package:gas_jp/pages/home_page.dart';
 import 'package:gas_jp/pages/register_page.dart';
+import 'package:gas_jp/util/toast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -8,7 +11,10 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   final _loginKey = GlobalKey<FormState>();
+  TextEditingController _uNameController = TextEditingController();
+  TextEditingController _uPwdController = TextEditingController();
   FocusNode _pwdFocusNode;
   String uName, uPwd;
   bool _isLookPwd = true;
@@ -16,29 +22,21 @@ class _LoginPageState extends State<LoginPage> {
   bool _loading = false;
 
   void submitRegisterForm() {
-    if (_loginKey.currentState.validate()) {
-      _loginKey.currentState.save();
-    } else {
-      setState(() {
-        autoValidate = true;
-      });
+    if (_uNameController.text != '' && _uPwdController.text != '') {
+      _login();
+    } else if (_uNameController.text == '') {
+      Toast.show(context, "用户名不能为空");
+    } else if (_uPwdController.text == '') {
+      Toast.show(context, "密码不能为空");
     }
   }
 
-  String validatorName(value) {
-    if (value.isEmpty) {
-      return '用户名不能为空';
-    }
-
-    return null;
-  }
-
-  String validatorPwd(value) {
-    if (value.isEmpty) {
-      return '密码不能为空';
-    }
-
-    return null;
+  _login() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('name', _uNameController.text);
+    prefs.setString('pwd', _uPwdController.text);
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => HomePage()));
   }
 
   @override
@@ -81,7 +79,7 @@ class _LoginPageState extends State<LoginPage> {
         children: <Widget>[
           Container(
             height: 650,
-            padding: EdgeInsets.fromLTRB(20, 160, 20, 100),
+            padding: EdgeInsets.fromLTRB(20, 30, 20, 100),
             color: Color.fromRGBO(246, 246, 246, 1),
             child: Column(
               children: <Widget>[
@@ -102,6 +100,7 @@ class _LoginPageState extends State<LoginPage> {
                             ]),
                         child: TextFormField(
                           keyboardType: TextInputType.number,
+                          controller: _uNameController,
                           decoration: InputDecoration(
                             labelText: '用户名',
                             hintText: "请输入手机号",
@@ -128,13 +127,14 @@ class _LoginPageState extends State<LoginPage> {
                         child: TextFormField(
                           obscureText: _isLookPwd,
                           focusNode: _pwdFocusNode,
+                          controller: _uPwdController,
                           decoration: InputDecoration(
                             labelText: '密码',
                             hintText: "请输入密码",
                             prefixIcon: Icon(Icons.lock),
                             border: InputBorder.none,
                             suffixIcon: GestureDetector(
-                              onTap: (){
+                              onTap: () {
                                 setState(() {
                                   _isLookPwd = !_isLookPwd;
                                 });
@@ -175,7 +175,8 @@ class _LoginPageState extends State<LoginPage> {
                           children: <Widget>[
                             GestureDetector(
                               onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => RegisterPage()));
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => RegisterPage()));
                               },
                               child: Text(
                                 '快速注册',
@@ -188,7 +189,8 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                             GestureDetector(
                               onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => FindPwdPage()));
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => FindPwdPage()));
                               },
                               child: Text(
                                 '忘记密码',

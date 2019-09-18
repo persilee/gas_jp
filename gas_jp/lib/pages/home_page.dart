@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:gas_jp/pages/login_page.dart';
+import 'package:gas_jp/pages/pay_cost_page.dart';
 import 'package:gas_jp/util/toast.dart';
 import 'package:marquee_flutter/marquee_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -39,12 +40,10 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _prefs.then((SharedPreferences prefs){
+    _prefs.then((SharedPreferences prefs) {
       _name = (prefs.getString('name') ?? '');
     });
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +89,9 @@ class _HomePageState extends State<HomePage> {
                       Expanded(
                         flex: 1,
                         child: GestureDetector(
-                          onTap: _isLogin,
+                          onTap: () {
+                            _isLogin('缴费');
+                          },
                           child: Column(
                             children: <Widget>[
                               Image(
@@ -114,7 +115,9 @@ class _HomePageState extends State<HomePage> {
                       Expanded(
                         flex: 1,
                         child: GestureDetector(
-                          onTap: _isLogin,
+                          onTap: () {
+                            _isLogin('记录');
+                          },
                           child: Column(
                             children: <Widget>[
                               Image(
@@ -139,7 +142,9 @@ class _HomePageState extends State<HomePage> {
                       Expanded(
                         flex: 1,
                         child: GestureDetector(
-                          onTap: _isLogin,
+                          onTap: () {
+                            _isLogin('客服');
+                          },
                           child: Column(
                             children: <Widget>[
                               Image(
@@ -164,7 +169,7 @@ class _HomePageState extends State<HomePage> {
                       Expanded(
                         flex: 1,
                         child: GestureDetector(
-                          onTap: (){
+                          onTap: () {
                             _showAlertDialog(context);
                           },
                           child: Column(
@@ -288,9 +293,9 @@ class _HomePageState extends State<HomePage> {
                         ),
                       )),
                       Image.asset(
-                          'assets/images/ags001.jpeg',
-                          width: 160,
-                          height: 100,
+                        'assets/images/ags001.jpeg',
+                        width: 160,
+                        height: 100,
                       )
                     ],
                   ),
@@ -382,21 +387,21 @@ class _HomePageState extends State<HomePage> {
                     children: <Widget>[
                       Expanded(
                           child: Padding(
-                            padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Text('业务须知',
-                                    style: TextStyle(
-                                        fontSize: 16, fontWeight: FontWeight.bold)),
-                                Padding(
-                                  padding: EdgeInsets.only(top: 16),
-                                ),
-                                Text('燃气安全，从这里开始。'),
-                              ],
+                        padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text('业务须知',
+                                style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.bold)),
+                            Padding(
+                              padding: EdgeInsets.only(top: 16),
                             ),
-                          )),
+                            Text('燃气安全，从这里开始。'),
+                          ],
+                        ),
+                      )),
                       Image.asset(
                         'assets/images/ags001.jpeg',
                         width: 160,
@@ -448,17 +453,42 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void _isLogin() {
+  Future<String> _getName() async {
+    return await _prefs.then((SharedPreferences prefs) {
+      return (prefs.getString('name') ?? '');
+    });
+  }
+
+  _isLogin(String item) {
+    print(item);
     if( _name == '' ){
       Toast.show(context, "您还没有登录！");
       _jumpLogin();
+    }else{
+      switch (item) {
+        case '缴费':
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => PayCostPage()));
+          break;
+        case '记录':
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => LoginPage()));
+          break;
+        case '客服':
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => LoginPage()));
+          break;
+      }
     }
   }
+
   Future<Null> _jumpLogin() async {
     await Future.delayed(Duration(seconds: 1), () {
-      Navigator.of(context).push(MaterialPageRoute(builder: (context) => LoginPage()));
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => LoginPage()));
     });
   }
+
   void _showAlertDialog(BuildContext context) {
     EasyDialog(
       description: Text(

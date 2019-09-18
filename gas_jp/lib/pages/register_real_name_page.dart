@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gas_jp/pages/register_tied_card_page.dart';
 
 class RegisterRealNamePage extends StatefulWidget {
   @override
@@ -13,7 +14,7 @@ class _RegisterRealNamePageState extends State<RegisterRealNamePage> {
   bool autoValidate = false;
 
   void submitRegisterForm() {
-    print(MediaQuery.of(context).padding.left);
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) => RegisterTiedCardPage()));
     if (_loginKey.currentState.validate()) {
       _loginKey.currentState.save();
     } else {
@@ -161,7 +162,6 @@ class _RegisterRealNamePageState extends State<RegisterRealNamePage> {
                     ],
                   ),
                 ),
-
               ],
             ),
           ),
@@ -177,8 +177,14 @@ class _RegisterRealNamePageState extends State<RegisterRealNamePage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Image.asset('assets/images/img_identityCard1.png', width: 158, height: 98,),
-                    Padding(padding: EdgeInsets.only(top: 10),),
+                    Image.asset(
+                      'assets/images/img_identityCard1.png',
+                      width: 158,
+                      height: 98,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 10),
+                    ),
                     Text('点击拍摄/上传人像面'),
                   ],
                 ),
@@ -186,8 +192,14 @@ class _RegisterRealNamePageState extends State<RegisterRealNamePage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Image.asset('assets/images/img_identityCard2.png', width: 158, height: 98,),
-                    Padding(padding: EdgeInsets.only(top: 10),),
+                    Image.asset(
+                      'assets/images/img_identityCard2.png',
+                      width: 158,
+                      height: 98,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 10),
+                    ),
                     Text('点击拍摄/上传国徽面'),
                   ],
                 ),
@@ -195,31 +207,40 @@ class _RegisterRealNamePageState extends State<RegisterRealNamePage> {
             ),
           ),
           Container(
+            height: 55,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Icon(
+                  Icons.error_outline,
+                  color: Color.fromRGBO(102, 102, 102, 1),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(right: 6),
+                ),
+                Text('请确认您的个人信息，若有误请重新上传')
+              ],
+            ),
+          ),
+          Container(
             height: 750,
-            padding: EdgeInsets.fromLTRB(20, 40, 20, 100),
+            padding: EdgeInsets.fromLTRB(0, 0, 0, 100),
             color: Color.fromRGBO(246, 246, 246, 1),
             child: Column(
               children: <Widget>[
-                Padding(padding: EdgeInsets.only(top: 18)),
                 Form(
                   key: _loginKey,
                   child: Column(
                     children: <Widget>[
                       Container(
                         decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(6),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey[200],
-                                blurRadius: 6.0,
-                              ),
-                            ]),
+                          color: Colors.white,
+                        ),
                         child: TextFormField(
-                          keyboardType: TextInputType.number,
                           decoration: InputDecoration(
-                            labelText: '用户名',
-                            hintText: "请输入手机号",
+                            labelText: '姓名',
+                            hintText: "请输入姓名",
                             prefixIcon: Icon(Icons.person),
                             border: InputBorder.none,
                             fillColor: Colors.white,
@@ -229,23 +250,19 @@ class _RegisterRealNamePageState extends State<RegisterRealNamePage> {
                           },
                         ),
                       ),
-                      Padding(padding: EdgeInsets.fromLTRB(0, 14, 0, 14)),
+                      Divider(
+                        height: 1,
+                        color: Color.fromRGBO(245, 245, 245, 1),
+                      ),
                       Container(
                         decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(6),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey[200],
-                                blurRadius: 6.0,
-                              ),
-                            ]),
+                          color: Colors.white,
+                        ),
                         child: TextFormField(
-                          keyboardType: TextInputType.number,
                           decoration: InputDecoration(
-                            labelText: '短信验证码',
-                            hintText: "请输入短信验证码",
-                            prefixIcon: Icon(Icons.mail),
+                            labelText: '身份证号',
+                            hintText: "请输入身份证号",
+                            prefixIcon: Icon(Icons.credit_card),
                             border: InputBorder.none,
                             fillColor: Colors.white,
                           ),
@@ -254,45 +271,41 @@ class _RegisterRealNamePageState extends State<RegisterRealNamePage> {
                           },
                         ),
                       ),
-                      Padding(padding: EdgeInsets.fromLTRB(0, 14, 0, 14)),
                       Container(
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(6),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey[200],
-                                blurRadius: 6.0,
+                        width: double.infinity,
+                        padding: EdgeInsets.fromLTRB(20, 30, 20, 30),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              '温馨提示：',
+                              style: TextStyle(
+                                color: Color.fromRGBO(102, 102, 102, 1),
+                                fontWeight:FontWeight.w500,
+                                height: 1.2,
                               ),
-                            ]),
-                        child: TextFormField(
-                          obscureText: _isLookPwd,
-                          focusNode: _pwdFocusNode,
-                          decoration: InputDecoration(
-                            labelText: '密码',
-                            hintText: "请设置登录密码",
-                            prefixIcon: Icon(Icons.lock),
-                            border: InputBorder.none,
-                            suffixIcon: GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  _isLookPwd = !_isLookPwd;
-                                });
-                              },
-                              child: Icon(Icons.remove_red_eye),
                             ),
-                          ),
-                          onSaved: (value) {
-                            uPwd = value;
-                          },
+                            Text(
+                              '1、身份信息一经认证不可修改！',
+                              style: TextStyle(
+                                color: Color.fromRGBO(102, 102, 102, 1),
+                                height: 1.2,
+                              ),
+                            ),
+                            Text(
+                              '2、信息仅用于身份证验证，巨鹏燃气保障您的安全信息。',
+                              style: TextStyle(
+                                color: Color.fromRGBO(102, 102, 102, 1),
+                                height: 1.2,
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                      Padding(padding: EdgeInsets.fromLTRB(0, 14, 0, 14)),
-                      SizedBox(
-                        height: 30.0,
                       ),
                       Container(
                         width: double.infinity,
+                        padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
                         child: RaisedButton(
                           color: Theme.of(context).primaryColor,
                           child: Text(
