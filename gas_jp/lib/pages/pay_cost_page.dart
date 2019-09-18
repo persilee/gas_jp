@@ -14,6 +14,7 @@ class _PayCostPageState extends State<PayCostPage> {
   bool groupValue = false;
   bool _isLookPwd = true;
   bool autoValidate = false;
+  bool _isChoose = false;
 
   void submitRegisterForm() {
     Navigator.of(context)
@@ -294,125 +295,152 @@ class _PayCostPageState extends State<PayCostPage> {
     final option = await showModalBottomSheet(
         context: context,
         builder: (BuildContext context) {
-          return GestureDetector(
-            behavior: HitTestBehavior.opaque,
-            onTap: () {
-              return false;
-            },
-            child: Container(
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    padding: EdgeInsets.fromLTRB(20, 18, 20, 18),
-                    decoration: BoxDecoration(
-                      color: Color.fromRGBO(242, 242, 242, 1),
-                    ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: Text(
-                            '取消',
-                            style: TextStyle(
-                              color: Color.fromRGBO(153, 153, 153, 1),
-                              fontSize: 16,
-                            ),
-                          ),
+          return StatefulBuilder(
+            builder: (context1, state) {
+              return GestureDetector(
+                behavior: HitTestBehavior.deferToChild,
+                onTap: () {
+                  return false;
+                },
+                child: Container(
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        padding: EdgeInsets.fromLTRB(20, 18, 20, 18),
+                        decoration: BoxDecoration(
+                          color: Color.fromRGBO(242, 242, 242, 1),
                         ),
-                        Expanded(
-                          flex: 1,
-                          child: Center(
-                            child: Text(
-                              '请选择扣款银行卡',
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: Color.fromRGBO(51, 51, 51, 1),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                              child: Text(
+                                '取消',
+                                style: TextStyle(
+                                  color: Color.fromRGBO(153, 153, 153, 1),
+                                  fontSize: 16,
+                                ),
                               ),
                             ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                    ),
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                          padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                          width: double.infinity,
-                          child: GestureDetector(
-                            onTap: () {},
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Image.asset(
-                                  'assets/images/gh_logo.png',
-                                  height: 40,
-                                  width: 40,
-                                ),
-                                Text(
-                                  '中国银行信用卡(4640)',
+                            Expanded(
+                              flex: 1,
+                              child: Center(
+                                child: Text(
+                                  '请选择扣款银行卡',
                                   style: TextStyle(
+                                    fontSize: 18,
                                     color: Color.fromRGBO(51, 51, 51, 1),
-                                    fontSize: 16,
                                   ),
                                 ),
-                                Expanded(
-                                  flex: 1,
-                                  child: Align(
-                                    alignment: Alignment.centerRight,
-                                    child: Icon(Icons.check, color: Theme.of(context).primaryColor,),
-                                  ),
-                                ),
-                              ],
+                              ),
                             ),
-                          ),
+                          ],
                         ),
-                        Divider(
-                          height: 1,
-                          color: Color.fromRGBO(240, 240, 240, 1),
+                      ),
+                      Container(
+                        padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
                         ),
-                        Container(
-                          padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                          child: GestureDetector(
-                            onTap: () {},
-                            child: Row(
-                              children: <Widget>[
-                                Image.asset(
-                                  'assets/images/gh_logo.png',
-                                  height: 40,
-                                  width: 40,
+                        child: Column(
+                          children: <Widget>[
+                            Container(
+                              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                              width: double.infinity,
+                              child: GestureDetector(
+                                onTap: () {
+                                  state(() {
+                                    _isChoose = !_isChoose;
+                                  });
+                                  print(_isChoose);
+                                },
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Image.asset(
+                                      'assets/images/gh_logo.png',
+                                      height: 40,
+                                      width: 40,
+                                    ),
+                                    Text(
+                                      '中国银行信用卡(4640)',
+                                      style: TextStyle(
+                                        color: Color.fromRGBO(51, 51, 51, 1),
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                    CheckWidget(visible:_isChoose),
+                                  ],
                                 ),
-                                Text(
-                                  '中国银行信用卡(4640)',
-                                  style: TextStyle(
-                                    color: Color.fromRGBO(51, 51, 51, 1),
-                                    fontSize: 16,
-                                  ),
-                                ),
-                              ],
+                              ),
                             ),
-                          ),
+                            Divider(
+                              height: 1,
+                              color: Color.fromRGBO(240, 240, 240, 1),
+                            ),
+                            Container(
+                              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                              child: GestureDetector(
+                                onTap: () {
+                                  state(() {
+                                    _isChoose = !_isChoose;
+                                  });
+                                },
+                                child: Row(
+                                  children: <Widget>[
+                                    Image.asset(
+                                      'assets/images/gh_logo.png',
+                                      height: 40,
+                                      width: 40,
+                                    ),
+                                    Text(
+                                      '中国银行信用卡(4640)',
+                                      style: TextStyle(
+                                        color: Color.fromRGBO(51, 51, 51, 1),
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                    CheckWidget(visible:_isChoose),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Divider(
+                              height: 1,
+                              color: Color.fromRGBO(240, 240, 240, 1),
+                            ),
+                          ],
                         ),
-                        Divider(
-                          height: 1,
-                          color: Color.fromRGBO(240, 240, 240, 1),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ),
+                ),
+              );
+            },
           );
         });
+  }
+}
+
+
+class CheckWidget extends StatelessWidget {
+  final bool visible;
+
+  const CheckWidget({Key key, this.visible}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedOpacity(
+      duration: Duration(milliseconds: 300),
+      opacity: visible ? 1.0 : 0.0,
+      child: Align(
+        alignment: Alignment.centerRight,
+        child: Icon(Icons.check, color: Theme.of(context).primaryColor,),
+      ),
+    );
   }
 }
