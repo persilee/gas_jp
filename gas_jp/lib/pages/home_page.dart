@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:gas_jp/pages/login_page.dart';
 import 'package:gas_jp/pages/pay_cost_page.dart';
+import 'package:gas_jp/pages/pay_record_page.dart';
 import 'package:gas_jp/util/toast.dart';
 import 'package:marquee_flutter/marquee_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -472,7 +473,7 @@ class _HomePageState extends State<HomePage> {
           break;
         case '记录':
           Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => LoginPage()));
+              .push(MaterialPageRoute(builder: (context) => PayRecordPage()));
           break;
         case '客服':
           Navigator.of(context)

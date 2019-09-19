@@ -76,7 +76,7 @@ class _RegisterCompletePageState extends State<RegisterCompletePage> {
             child: Column(
               children: <Widget>[
                 Image.asset(
-                  'assets/images/icon_notice.png',
+                  'assets/images/icon_blueFinished.png',
                   height: 58,
                   width: 58,
                 ),

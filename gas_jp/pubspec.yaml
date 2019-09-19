@@ -74,6 +74,22 @@ flutter:
     - assets/images/img_identityCard1.png
     - assets/images/img_identityCard2.png
     - assets/images/gh_logo.png
+    - assets/images/icon_blueFinished.png
+    - assets/images/icon_bankLogo_BOC.png
+    - assets/images/icon_bankLogo_ABC.png
+    - assets/images/icon_bankLogo_CMB.png
+    - assets/images/icon_bankLogo_CEB.png
+    - assets/images/icon_bankLogo_BOCOM.png
+    - assets/images/icon_bankLogo_CGB.png
+    - assets/images/img_accountBg.png
+    - assets/images/img_accountProfilePhoto.png
+    - assets/images/icon_accountNumber.png
+    - assets/images/icon_accountCardPag.png
+    - assets/images/icon_accountBankCard.png
+    - assets/images/icon_accountPassword.png
+    - assets/images/icon_accountServiceLady.png
+    - assets/images/icon_accountNotice.png
+    - assets/images/icon_accountAbout.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

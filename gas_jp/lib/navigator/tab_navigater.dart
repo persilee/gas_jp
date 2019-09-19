@@ -91,7 +91,7 @@ class _TabNavigatorState extends State<TabNavigator> {
                   height: 28,
               ),
               title: Text(
-                '账户中心',
+                '我的',
                 style: TextStyle(
                   color: _currentIndex != 2 ? _defaultColor : _activeColor,
                   fontSize: 12,

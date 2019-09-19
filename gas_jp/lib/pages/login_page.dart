@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gas_jp/navigator/tab_navigater.dart';
 import 'package:gas_jp/pages/find_pwd_page.dart';
 import 'package:gas_jp/pages/home_page.dart';
 import 'package:gas_jp/pages/register_page.dart';
@@ -63,7 +64,7 @@ class _LoginPageState extends State<LoginPage> {
         actions: <Widget>[
           GestureDetector(
             onTap: () {
-              Navigator.pop(context);
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => TabNavigator()));
             },
             child: Padding(
               padding: EdgeInsets.only(right: 12),

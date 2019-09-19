@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:easy_dialog/easy_dialog.dart';
 import 'package:gas_jp/pages/login_page.dart';
+import 'package:gas_jp/pages/pay_complete_page.dart';
 
 class PayCostPage extends StatefulWidget {
   @override
@@ -15,28 +16,88 @@ class _PayCostPageState extends State<PayCostPage> {
   bool _isLookPwd = true;
   bool autoValidate = false;
   bool _isChoose = false;
-
-  void submitRegisterForm() {
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => LoginPage()));
-    if (_loginKey.currentState.validate()) {
-      _loginKey.currentState.save();
-    } else {
-      setState(() {
-        autoValidate = true;
-      });
-    }
-  }
+  String _cartVal = '';
 
   void _showAlertDialog(BuildContext context) {
     EasyDialog(
+      closeButton: false,
+      cornerRadius: 10.0,
+      fogOpacity: 0.1,
+      height: 160,
       description: Text(
-        "功能暂未开放，敬请期待",
+        "您确认要进行缴费吗？",
         textScaleFactor: 1.2,
-        style: TextStyle(fontSize: 14, color: Colors.black54),
+        style: TextStyle(
+            fontSize: 16, color: Colors.black54, fontWeight: FontWeight.bold),
         textAlign: TextAlign.center,
       ),
-      height: 140,
+      descriptionPadding: EdgeInsets.fromLTRB(0, 40, 0, 40),
+      contentPadding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+      contentList: [
+        Divider(
+          height: 1,
+          color: Color.fromRGBO(77, 77, 77, 0.78),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Expanded(
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  margin: EdgeInsets.only(top: 6),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(10.0),
+                    ),
+                  ),
+                  child: Text(
+                    "取消",
+                    textScaleFactor: 1.2,
+                    style: TextStyle(
+                      color: Color.fromRGBO(0, 118, 255, 1),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              width: 0.5,
+              height: 50,
+              decoration: BoxDecoration(
+                color: Color.fromRGBO(77, 77, 77, 0.78),
+              ),
+            ),
+            Expanded(
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => PayCompletePage()));
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  margin: EdgeInsets.only(top: 6),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(10.0),
+                    ),
+                  ),
+                  child: Text(
+                    "确定",
+                    textScaleFactor: 1.2,
+                    style: TextStyle(
+                      color: Color.fromRGBO(0, 118, 255, 1),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
     ).show(context);
   }
 
@@ -281,7 +342,9 @@ class _PayCostPageState extends State<PayCostPage> {
                 ),
               ),
               elevation: 0.0,
-              onPressed: submitRegisterForm,
+              onPressed: () {
+                _showAlertDialog(context);
+              },
               padding: EdgeInsets.all(12),
               disabledColor: Color.fromRGBO(41, 150, 196, 0.5),
             ),
@@ -306,7 +369,7 @@ class _PayCostPageState extends State<PayCostPage> {
                   child: Column(
                     children: <Widget>[
                       Container(
-                        padding: EdgeInsets.fromLTRB(20, 18, 20, 18),
+                        padding: EdgeInsets.fromLTRB(22, 18, 22, 18),
                         decoration: BoxDecoration(
                           color: Color.fromRGBO(242, 242, 242, 1),
                         ),
@@ -342,72 +405,222 @@ class _PayCostPageState extends State<PayCostPage> {
                         ),
                       ),
                       Container(
-                        padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                         decoration: BoxDecoration(
                           color: Colors.white,
                         ),
                         child: Column(
                           children: <Widget>[
-                            Container(
-                              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                              width: double.infinity,
-                              child: GestureDetector(
-                                onTap: () {
-                                  state(() {
-                                    _isChoose = !_isChoose;
-                                  });
-                                  print(_isChoose);
-                                },
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Image.asset(
-                                      'assets/images/gh_logo.png',
-                                      height: 40,
-                                      width: 40,
+                            RadioListTile(
+                              value: 'BOC',
+                              groupValue: _cartVal,
+                              onChanged: (value) {
+                                state(() {
+                                  _cartVal = value;
+                                });
+                              },
+                              activeColor: Theme.of(context).primaryColor,
+                              title: Wrap(
+                                crossAxisAlignment: WrapCrossAlignment.center,
+                                children: <Widget>[
+                                  Image.asset(
+                                    'assets/images/icon_bankLogo_BOC.png',
+                                    height: 40,
+                                    width: 40,
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(right: 6),
+                                  ),
+                                  Text(
+                                    '中国银行信用卡(4640)',
+                                    style: TextStyle(
+                                      color: Color.fromRGBO(51, 51, 51, 1),
+                                      fontSize: 16,
                                     ),
-                                    Text(
-                                      '中国银行信用卡(4640)',
-                                      style: TextStyle(
-                                        color: Color.fromRGBO(51, 51, 51, 1),
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                    CheckWidget(visible:_isChoose),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
+                              isThreeLine: false,
+                              controlAffinity: ListTileControlAffinity.trailing,
                             ),
                             Divider(
                               height: 1,
                               color: Color.fromRGBO(240, 240, 240, 1),
                             ),
-                            Container(
-                              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                              child: GestureDetector(
-                                onTap: () {
-                                  state(() {
-                                    _isChoose = !_isChoose;
-                                  });
-                                },
-                                child: Row(
-                                  children: <Widget>[
-                                    Image.asset(
-                                      'assets/images/gh_logo.png',
-                                      height: 40,
-                                      width: 40,
+                            RadioListTile(
+                              value: 'ABC',
+                              groupValue: _cartVal,
+                              onChanged: (value) {
+                                state(() {
+                                  _cartVal = value;
+                                });
+                              },
+                              activeColor: Theme.of(context).primaryColor,
+                              title: Wrap(
+                                crossAxisAlignment: WrapCrossAlignment.center,
+                                children: <Widget>[
+                                  Image.asset(
+                                    'assets/images/icon_bankLogo_ABC.png',
+                                    height: 40,
+                                    width: 40,
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(right: 6),
+                                  ),
+                                  Text(
+                                    '中国农业银行储蓄卡(4238)',
+                                    style: TextStyle(
+                                      color: Color.fromRGBO(51, 51, 51, 1),
+                                      fontSize: 16,
                                     ),
-                                    Text(
-                                      '中国银行信用卡(4640)',
-                                      style: TextStyle(
-                                        color: Color.fromRGBO(51, 51, 51, 1),
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                    CheckWidget(visible:_isChoose),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
+                              isThreeLine: false,
+                              controlAffinity: ListTileControlAffinity.trailing,
+                            ),
+                            Divider(
+                              height: 1,
+                              color: Color.fromRGBO(240, 240, 240, 1),
+                            ),
+                            RadioListTile(
+                              value: 'CMB',
+                              groupValue: _cartVal,
+                              onChanged: (value) {
+                                state(() {
+                                  _cartVal = value;
+                                });
+                              },
+                              activeColor: Theme.of(context).primaryColor,
+                              title: Wrap(
+                                crossAxisAlignment: WrapCrossAlignment.center,
+                                children: <Widget>[
+                                  Image.asset(
+                                    'assets/images/icon_bankLogo_CMB.png',
+                                    height: 40,
+                                    width: 40,
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(right: 6),
+                                  ),
+                                  Text(
+                                    '招商银行储蓄卡(1536)',
+                                    style: TextStyle(
+                                      color: Color.fromRGBO(51, 51, 51, 1),
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              isThreeLine: false,
+                              controlAffinity: ListTileControlAffinity.trailing,
+                            ),
+                            Divider(
+                              height: 1,
+                              color: Color.fromRGBO(240, 240, 240, 1),
+                            ),
+                            RadioListTile(
+                              value: 'CEB',
+                              groupValue: _cartVal,
+                              onChanged: (value) {
+                                state(() {
+                                  _cartVal = value;
+                                });
+                              },
+                              activeColor: Theme.of(context).primaryColor,
+                              title: Wrap(
+                                crossAxisAlignment: WrapCrossAlignment.center,
+                                children: <Widget>[
+                                  Image.asset(
+                                    'assets/images/icon_bankLogo_CEB.png',
+                                    height: 40,
+                                    width: 40,
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(right: 6),
+                                  ),
+                                  Text(
+                                    '光大银行信用卡(1328)',
+                                    style: TextStyle(
+                                      color: Color.fromRGBO(51, 51, 51, 1),
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              isThreeLine: false,
+                              controlAffinity: ListTileControlAffinity.trailing,
+                            ),
+                            Divider(
+                              height: 1,
+                              color: Color.fromRGBO(240, 240, 240, 1),
+                            ),
+                            RadioListTile(
+                              value: 'BOCOM',
+                              groupValue: _cartVal,
+                              onChanged: (value) {
+                                state(() {
+                                  _cartVal = value;
+                                });
+                              },
+                              activeColor: Theme.of(context).primaryColor,
+                              title: Wrap(
+                                crossAxisAlignment: WrapCrossAlignment.center,
+                                children: <Widget>[
+                                  Image.asset(
+                                    'assets/images/icon_bankLogo_BOCOM.png',
+                                    height: 40,
+                                    width: 40,
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(right: 6),
+                                  ),
+                                  Text(
+                                    '交通银行信用卡(8672)',
+                                    style: TextStyle(
+                                      color: Color.fromRGBO(51, 51, 51, 1),
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              isThreeLine: false,
+                              controlAffinity: ListTileControlAffinity.trailing,
+                            ),
+                            Divider(
+                              height: 1,
+                              color: Color.fromRGBO(240, 240, 240, 1),
+                            ),
+                            RadioListTile(
+                              value: 'CGB',
+                              groupValue: _cartVal,
+                              onChanged: (value) {
+                                state(() {
+                                  _cartVal = value;
+                                });
+                              },
+                              activeColor: Theme.of(context).primaryColor,
+                              title: Wrap(
+                                crossAxisAlignment: WrapCrossAlignment.center,
+                                children: <Widget>[
+                                  Image.asset(
+                                    'assets/images/icon_bankLogo_CGB.png',
+                                    height: 40,
+                                    width: 40,
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(right: 6),
+                                  ),
+                                  Text(
+                                    '广发银行储蓄卡(3290)',
+                                    style: TextStyle(
+                                      color: Color.fromRGBO(51, 51, 51, 1),
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              isThreeLine: false,
+                              controlAffinity: ListTileControlAffinity.trailing,
                             ),
                             Divider(
                               height: 1,
@@ -426,7 +639,6 @@ class _PayCostPageState extends State<PayCostPage> {
   }
 }
 
-
 class CheckWidget extends StatelessWidget {
   final bool visible;
 
@@ -439,7 +651,10 @@ class CheckWidget extends StatelessWidget {
       opacity: visible ? 1.0 : 0.0,
       child: Align(
         alignment: Alignment.centerRight,
-        child: Icon(Icons.check, color: Theme.of(context).primaryColor,),
+        child: Icon(
+          Icons.check,
+          color: Theme.of(context).primaryColor,
+        ),
       ),
     );
   }
