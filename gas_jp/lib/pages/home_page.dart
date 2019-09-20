@@ -144,7 +144,7 @@ class _HomePageState extends State<HomePage> {
                         flex: 1,
                         child: GestureDetector(
                           onTap: () {
-                            _isLogin('客服');
+                            _showAlertDialog(context);
                           },
                           child: Column(
                             children: <Widget>[

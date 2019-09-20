@@ -90,6 +90,7 @@ flutter:
     - assets/images/icon_accountServiceLady.png
     - assets/images/icon_accountNotice.png
     - assets/images/icon_accountAbout.png
+    - assets/images/img_accountLogo.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:gas_jp/pages/about_page.dart';
+import 'package:gas_jp/pages/login_page.dart';
+import 'package:gas_jp/pages/message_list_page.dart';
+import 'package:gas_jp/pages/reset_pwd_page.dart';
+import 'package:easy_dialog/easy_dialog.dart';
 
 class MyPage extends StatefulWidget {
   @override
@@ -22,6 +27,101 @@ class _MyPageState extends State<MyPage> {
       });
     }
     return null;
+  }
+
+  void _showDialog(BuildContext context) {
+    EasyDialog(
+      description: Text(
+        "功能暂未开放，敬请期待",
+        textScaleFactor: 1.2,
+        style: TextStyle(fontSize: 14, color: Colors.black54),
+        textAlign: TextAlign.center,
+      ),
+      height: 140,
+    ).show(context);
+  }
+
+  void _showAlertDialog(BuildContext context) {
+    EasyDialog(
+      closeButton: false,
+      cornerRadius: 10.0,
+      fogOpacity: 0.1,
+      height: 160,
+      description: Text(
+        "您确认要退出登录吗？？",
+        textScaleFactor: 1.2,
+        style: TextStyle(
+            fontSize: 16, color: Colors.black54, fontWeight: FontWeight.bold),
+        textAlign: TextAlign.center,
+      ),
+      descriptionPadding: EdgeInsets.fromLTRB(0, 40, 0, 40),
+      contentPadding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+      contentList: [
+        Divider(
+          height: 1,
+          color: Color.fromRGBO(77, 77, 77, 0.78),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Expanded(
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  margin: EdgeInsets.only(top: 6),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(10.0),
+                    ),
+                  ),
+                  child: Text(
+                    "取消",
+                    textScaleFactor: 1.2,
+                    style: TextStyle(
+                      color: Color.fromRGBO(0, 118, 255, 1),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              width: 0.5,
+              height: 50,
+              decoration: BoxDecoration(
+                color: Color.fromRGBO(77, 77, 77, 0.78),
+              ),
+            ),
+            Expanded(
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => LoginPage()));
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  margin: EdgeInsets.only(top: 6),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(10.0),
+                    ),
+                  ),
+                  child: Text(
+                    "确定",
+                    textScaleFactor: 1.2,
+                    style: TextStyle(
+                      color: Color.fromRGBO(0, 118, 255, 1),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
+    ).show(context);
   }
 
   @override
@@ -122,7 +222,10 @@ class _MyPageState extends State<MyPage> {
                       Container(
                         padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
                         child: GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            _showDialog(context);
+                          },
+                          behavior: HitTestBehavior.opaque,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
@@ -162,6 +265,7 @@ class _MyPageState extends State<MyPage> {
                         padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
                         child: GestureDetector(
                           onTap: _openModalBottomSheet,
+                          behavior: HitTestBehavior.opaque,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
@@ -217,7 +321,10 @@ class _MyPageState extends State<MyPage> {
                       Container(
                         padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
                         child: GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => ResetPwdPage()));
+                          },
+                          behavior: HitTestBehavior.opaque,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
@@ -262,34 +369,40 @@ class _MyPageState extends State<MyPage> {
                     children: <Widget>[
                       Container(
                         padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Wrap(
-                              children: <Widget>[
-                                Image.asset(
-                                  'assets/images/icon_accountServiceLady.png',
-                                  height: 19,
-                                  width: 18,
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(right: 10),
-                                ),
-                                Text(
-                                  '智能客服',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: Color.fromRGBO(51, 51, 51, 1),
-                                    fontWeight: FontWeight.w400,
+                        child: GestureDetector(
+                          onTap: (){
+                            _showDialog(context);
+                          },
+                          behavior: HitTestBehavior.opaque,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Wrap(
+                                children: <Widget>[
+                                  Image.asset(
+                                    'assets/images/icon_accountServiceLady.png',
+                                    height: 19,
+                                    width: 18,
                                   ),
-                                ),
-                              ],
-                            ),
-                            Icon(
-                              Icons.arrow_forward_ios,
-                              size: 16,
-                            ),
-                          ],
+                                  Padding(
+                                    padding: EdgeInsets.only(right: 10),
+                                  ),
+                                  Text(
+                                    '智能客服',
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Color.fromRGBO(51, 51, 51, 1),
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Icon(
+                                Icons.arrow_forward_ios,
+                                size: 16,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                       Divider(
@@ -298,34 +411,40 @@ class _MyPageState extends State<MyPage> {
                       ),
                       Container(
                         padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Wrap(
-                              children: <Widget>[
-                                Image.asset(
-                                  'assets/images/icon_accountNotice.png',
-                                  height: 19,
-                                  width: 18,
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(right: 10),
-                                ),
-                                Text(
-                                  '消息通知',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: Color.fromRGBO(51, 51, 51, 1),
-                                    fontWeight: FontWeight.w400,
+                        child: GestureDetector(
+                          onTap: (){
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => MessageListPage()));
+                          },
+                          behavior: HitTestBehavior.opaque,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Wrap(
+                                children: <Widget>[
+                                  Image.asset(
+                                    'assets/images/icon_accountNotice.png',
+                                    height: 19,
+                                    width: 18,
                                   ),
-                                ),
-                              ],
-                            ),
-                            Icon(
-                              Icons.arrow_forward_ios,
-                              size: 16,
-                            ),
-                          ],
+                                  Padding(
+                                    padding: EdgeInsets.only(right: 10),
+                                  ),
+                                  Text(
+                                    '消息通知',
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Color.fromRGBO(51, 51, 51, 1),
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Icon(
+                                Icons.arrow_forward_ios,
+                                size: 16,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ],
@@ -341,34 +460,40 @@ class _MyPageState extends State<MyPage> {
                     children: <Widget>[
                       Container(
                         padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Wrap(
-                              children: <Widget>[
-                                Image.asset(
-                                  'assets/images/icon_accountAbout.png',
-                                  height: 19,
-                                  width: 18,
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(right: 10),
-                                ),
-                                Text(
-                                  '关于',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: Color.fromRGBO(51, 51, 51, 1),
-                                    fontWeight: FontWeight.w400,
+                        child: GestureDetector(
+                          onTap: (){
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => AboutPage()));
+                          },
+                          behavior: HitTestBehavior.opaque,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Wrap(
+                                children: <Widget>[
+                                  Image.asset(
+                                    'assets/images/icon_accountAbout.png',
+                                    height: 19,
+                                    width: 18,
                                   ),
-                                ),
-                              ],
-                            ),
-                            Icon(
-                              Icons.arrow_forward_ios,
-                              size: 16,
-                            ),
-                          ],
+                                  Padding(
+                                    padding: EdgeInsets.only(right: 10),
+                                  ),
+                                  Text(
+                                    '关于',
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Color.fromRGBO(51, 51, 51, 1),
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Icon(
+                                Icons.arrow_forward_ios,
+                                size: 16,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ],
@@ -388,7 +513,9 @@ class _MyPageState extends State<MyPage> {
                         fontSize: 20,
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      _showAlertDialog(context);
+                    },
                     padding: EdgeInsets.all(12),
                   ),
                 ),
